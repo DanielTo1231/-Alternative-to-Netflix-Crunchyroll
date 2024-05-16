@@ -1,13 +1,13 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Home} from "./Home";
-import {NoMatch} from "./NoMatch.jsx";
+import {DetailPage} from "./Details.jsx";
 
 export function App() {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="*" element={<NoMatch/>}/>
+                <Route path="/detail/:id" element={<DetailPage/>}/>
             </Routes>
         </BrowserRouter>
     );

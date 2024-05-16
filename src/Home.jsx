@@ -1,29 +1,31 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export function Home() {
     const [tvShows, setTvShows] = useState([]);
     const [studios, setStudios] = useState([]);
-    const [setGenres] = useState([]);
     const [filterTitle, setFilterTitle] = useState("");
     const [filterStudio, setFilterStudio] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [showsPerPage, setShowsPerPage] = useState(8);
 
     useEffect(() => {
-        fetch("https://tvshowdbapi.herokuapp.com/tvshows")
-            .then(response => response.json())
-            .then(data => setTvShows(data))
-            .catch(error => console.error("Error fetching TV shows:", error));
+        const fetchData = async () => {
+            try {
+                const responseShows = await fetch("https://tvshowdbapi.herokuapp.com/tvshows");
+                const showsData = await responseShows.json();
+                setTvShows(showsData);
 
-        fetch("https://tvshowdbapi.herokuapp.com/studios")
-            .then(response => response.json())
-            .then(data => setStudios(data))
-            .catch(error => console.error("Error fetching studios:", error));
+                const responseStudios = await fetch("https://tvshowdbapi.herokuapp.com/studios");
+                const studiosData = await responseStudios.json();
+                setStudios(studiosData);
 
-        fetch("https://tvshowdbapi.herokuapp.com/genres")
-            .then(response => response.json())
-            .then(data => setGenres(data))
-            .catch(error => console.error("Error fetching genres:", error));
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     const indexOfLastShow = currentPage * showsPerPage;
@@ -80,19 +82,21 @@ export function Home() {
             <div className="columns is-multiline">
                 {filterTvShows().map(show => (
                     <div key={show.tvshowId} className="column is-12-mobile is-6-tablet is-3-desktop">
-                        <div className="card">
-                            <div className="card-image">
-                                <figure className="image is-square">
-                                    <img src={show.imgURL} alt={show.title}/>
-                                </figure>
+                        <Link to={`/detail/${show.tvshowId}`}>
+                            <div className="card">
+                                <div className="card-image">
+                                    <figure className="image is-square">
+                                        <img src={show.imgURL} alt={show.title}/>
+                                    </figure>
+                                </div>
+                                <div className="card-content has-text-centered">
+                                    <p className="title is-4">{show.title}</p><br/>
+                                    <p className="subtitle is-6 mb-0"><b>Studio: </b>{show.studio.name}</p>
+                                    <p className="subtitle is-6">
+                                        <b>Genres: </b>{show.genres.map(genre => genre.name).join(", ")}</p>
+                                </div>
                             </div>
-                            <div className="card-content has-text-centered">
-                                <p className="title is-4">{show.title}</p><br/>
-                                <p className="subtitle is-6 mb-0"><b>Studio: </b>{show.studio.name}</p>
-                                <p className="subtitle is-6">
-                                    <b>Genres: </b>{show.genres.map(genre => genre.name).join(", ")}</p>
-                            </div>
-                        </div>
+                        </Link>
                     </div>
                 ))}
             </div>
