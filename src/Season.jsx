@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export const SeasonPage = () => {
     const { seasonId } = useParams();
@@ -41,15 +41,17 @@ export const SeasonPage = () => {
                 {currentEpisodes.map(episode => (
                     <div key={episode.episodeId} className="column is-one-quarter-desktop is-one-third-tablet is-half-mobile">
                         <div className="card">
-                            <div className="card-image">
-                                <figure className="image is-4by3">
-                                    <img src={episode.imgURL} alt={episode.title} />
-                                </figure>
-                            </div>
-                            <div className="card-content">
-                                <p className="title is-5 has-text-centered">{episode.title}</p>
-                                <p className="subtitle is-6 has-text-centered">{episode.number}</p>
-                            </div>
+                            <Link to={`/episode/${episode.episodeId}`}>
+                                <div className="card-image">
+                                    <figure className="image is-4by3">
+                                        <img src={episode.imgURL} alt={episode.title} />
+                                    </figure>
+                                </div>
+                                <div className="card-content">
+                                    <p className="title is-5 has-text-centered">{episode.title}</p>
+                                    <p className="subtitle is-6 has-text-centered">{episode.number}</p>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                 ))}

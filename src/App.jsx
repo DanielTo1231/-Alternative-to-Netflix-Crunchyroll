@@ -6,6 +6,7 @@ import {Navbar} from "./components/Navbar";
 import {AuthProvider} from "./Auth";
 import {Login} from "./Login";
 import {SeasonPage} from "./Season";
+import {JouerEpisode} from "./JouerEpisode";
 
 export function App() {
     return (
@@ -17,6 +18,7 @@ export function App() {
                     <Route path="/detail/:id" element={<DetailPage/>}/>
                     <Route path="/login" element={<Login />}/>
                     <Route path="/season/:seasonId" element={<SeasonPage/>}/>
+                    <Route path="/episode/:episodeId" element={<JouerEpisode/>}/>
                     <Route path="*" element={<NoMatch/>}/>
                 </Routes>
             </BrowserRouter>
