@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useAuth } from "./Auth"; // Assume there is an Auth context
+import { useAuth } from "./Auth";
 
 export const JouerEpisode = () => {
     const { episodeId } = useParams();
