@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export function DetailPage() {
     const { id } = useParams();
@@ -59,9 +59,11 @@ export function DetailPage() {
             <div className="columns is-multiline">
                 {show.seasons.map(season => (
                     <div key={season.seasonId} className="column is-one-fifth">
-                        <img src={season.imgURL} alt={`Season ${season.number}`}/>
-                        <p className="has-text-centered"><b>Season:</b> {season.number}</p>
-                        <p className="has-text-centered"><b>Episode Count:</b> {season.episodeCount}</p>
+                        <Link to={`/season/${season.seasonId}`}>
+                            <img src={season.imgURL} alt={`Season ${season.number}`}/>
+                            <p className="has-text-centered"><b>Season:</b> {season.number}</p>
+                            <p className="has-text-centered"><b>Episode Count:</b> {season.episodeCount}</p>
+                        </Link>
                     </div>
                 ))}
             </div>
