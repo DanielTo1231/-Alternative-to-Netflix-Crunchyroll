@@ -19,29 +19,35 @@ export const History = () => {
             <div className="columns is-multiline">
                 {currentEpisodes.map(episode => (
                     <div key={episode.episodeId} className="column is-one-third-tablet is-half-mobile">
-                        <Link to={`/episode/${episode.episodeId}`}>
+                        <div>
                             <div className="card">
                                 <div className="card-image">
-                                    <figure className="image is-4by3">
-                                        <img src={episode.imgURL} alt={episode.episodeTitle} />
-                                    </figure>
+                                    <Link to={`/episode/${episode.episodeId}`}>
+                                        <figure className="image is-4by3">
+                                            <img src={episode.imgURL} alt={episode.episodeTitle} />
+                                        </figure>
+                                    </Link>
                                 </div>
                                 <div className="card-content has-text-centered">
                                     <p className="title is-5">{episode.episodeTitle}</p>
                                     <p className="subtitle is-6">{episode.episodeNumber}</p>
-                                    <Link to={`/season/${episode.seasonId}`}>Saison {episode.seasonNumber}</Link> |
-                                    <Link to={`/detail/${episode.tvshowId}`}> {episode.tvshowTitle}</Link>
+                                    <div>
+                                        <Link to={`/season/${episode.seasonId}`}>Saison {episode.seasonNumber}</Link> |
+                                        <Link to={`/detail/${episode.tvshowId}`}> {episode.tvshowTitle}</Link>
+                                    </div>
                                 </div>
                             </div>
-                        </Link>
+                        </div>
                     </div>
                 ))}
             </div>
             <nav className="pagination is-left" role="navigation" aria-label="pagination">
-                <a className="pagination-previous" onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                <a className="pagination-previous" onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}>
                     &lt;
                 </a>
-                <a className="pagination-next" onClick={() => paginate(currentPage + 1)} disabled={currentPage === Math.ceil(history.length / episodesPerPage)}>
+                <a className="pagination-next" onClick={() => paginate(currentPage + 1)}
+                    disabled={currentPage === Math.ceil(history.length / episodesPerPage)}>
                     &gt;
                 </a>
                 <ul className="pagination-list">
